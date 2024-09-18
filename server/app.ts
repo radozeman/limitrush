@@ -7,10 +7,6 @@ const app = new Hono();
 
 app.use("*", logger());
 
-app.get("/", (c) => {
-  return c.json({ message: "Hello from Hono" });
-});
-
 app.route("/api/workouts", workoutsRoute);
 
 app.use("*", serveStatic({ root: "./client/dist" }));
