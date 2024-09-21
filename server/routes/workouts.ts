@@ -8,7 +8,7 @@ const workoutSechema = z.object({
 });
 
 const createPostSchema = workoutSechema.omit({ id: true });
-type Workout = z.infer<typeof workoutSechema>;
+export type Workout = z.infer<typeof workoutSechema>;
 
 const dbWorkouts: Workout[] = [
   {
