@@ -1,5 +1,5 @@
-import DesktopNav from "./desktopNav";
-import MobileNav from "./mobileNav";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 const Nav = () => {
   return (
