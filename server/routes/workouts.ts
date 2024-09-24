@@ -27,7 +27,7 @@ const dbWorkouts: Workout[] = [
 
 export const workoutsRoute = new Hono()
   .get("/", (c) => {
-    return c.json({ workouts: dbWorkouts });
+    return c.json(dbWorkouts);
   })
   .post("/", zValidator("json", createPostSchema), async (c) => {
     const workout = await c.req.valid("json");
