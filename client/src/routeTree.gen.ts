@@ -11,11 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as EditWorkoutImport } from './routes/edit-workout'
 import { Route as CreateWorkoutImport } from './routes/create-workout'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const EditWorkoutRoute = EditWorkoutImport.update({
+  path: '/edit-workout',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const CreateWorkoutRoute = CreateWorkoutImport.update({
   path: '/create-workout',
@@ -57,6 +63,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateWorkoutImport
       parentRoute: typeof rootRoute
     }
+    '/edit-workout': {
+      id: '/edit-workout'
+      path: '/edit-workout'
+      fullPath: '/edit-workout'
+      preLoaderRoute: typeof EditWorkoutImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -66,12 +79,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/create-workout': typeof CreateWorkoutRoute
+  '/edit-workout': typeof EditWorkoutRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/create-workout': typeof CreateWorkoutRoute
+  '/edit-workout': typeof EditWorkoutRoute
 }
 
 export interface FileRoutesById {
@@ -79,14 +94,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/create-workout': typeof CreateWorkoutRoute
+  '/edit-workout': typeof EditWorkoutRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/create-workout'
+  fullPaths: '/' | '/about' | '/create-workout' | '/edit-workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/create-workout'
-  id: '__root__' | '/' | '/about' | '/create-workout'
+  to: '/' | '/about' | '/create-workout' | '/edit-workout'
+  id: '__root__' | '/' | '/about' | '/create-workout' | '/edit-workout'
   fileRoutesById: FileRoutesById
 }
 
@@ -94,12 +110,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   CreateWorkoutRoute: typeof CreateWorkoutRoute
+  EditWorkoutRoute: typeof EditWorkoutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CreateWorkoutRoute: CreateWorkoutRoute,
+  EditWorkoutRoute: EditWorkoutRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,7 +134,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/create-workout"
+        "/create-workout",
+        "/edit-workout"
       ]
     },
     "/": {
@@ -127,6 +146,9 @@ export const routeTree = rootRoute
     },
     "/create-workout": {
       "filePath": "create-workout.tsx"
+    },
+    "/edit-workout": {
+      "filePath": "edit-workout.tsx"
     }
   }
 }
