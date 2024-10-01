@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { api } from "../lib/api";
-import { type Workout } from "../../../server/routes/workouts";
+import { api } from "../../lib/api";
+import { type Workout } from "../../../../server/routes/workouts";
 import { useQuery } from "@tanstack/react-query";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/(main)/")({
   component: Index,
 });
 

@@ -10,119 +10,119 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as EditWorkoutImport } from './routes/edit-workout'
-import { Route as CreateWorkoutImport } from './routes/create-workout'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as mainIndexImport } from "./routes/(main)/index";
+import { Route as mainEditImport } from "./routes/(main)/edit";
+import { Route as mainCreateImport } from "./routes/(main)/create";
+import { Route as authAuthImport } from "./routes/(auth)/auth";
 
 // Create/Update Routes
 
-const EditWorkoutRoute = EditWorkoutImport.update({
-  path: '/edit-workout',
+const mainIndexRoute = mainIndexImport.update({
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
-const CreateWorkoutRoute = CreateWorkoutImport.update({
-  path: '/create-workout',
+const mainEditRoute = mainEditImport.update({
+  path: "/edit",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
-const AboutRoute = AboutImport.update({
-  path: '/about',
+const mainCreateRoute = mainCreateImport.update({
+  path: "/create",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
-const IndexRoute = IndexImport.update({
-  path: '/',
+const authAuthRoute = authAuthImport.update({
+  path: "/auth",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/create-workout': {
-      id: '/create-workout'
-      path: '/create-workout'
-      fullPath: '/create-workout'
-      preLoaderRoute: typeof CreateWorkoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/edit-workout': {
-      id: '/edit-workout'
-      path: '/edit-workout'
-      fullPath: '/edit-workout'
-      preLoaderRoute: typeof EditWorkoutImport
-      parentRoute: typeof rootRoute
-    }
+    "/(auth)/auth": {
+      id: "/auth";
+      path: "/auth";
+      fullPath: "/auth";
+      preLoaderRoute: typeof authAuthImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/(main)/create": {
+      id: "/create";
+      path: "/create";
+      fullPath: "/create";
+      preLoaderRoute: typeof mainCreateImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/(main)/edit": {
+      id: "/edit";
+      path: "/edit";
+      fullPath: "/edit";
+      preLoaderRoute: typeof mainEditImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/(main)/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof mainIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-workout': typeof CreateWorkoutRoute
-  '/edit-workout': typeof EditWorkoutRoute
+  "/auth": typeof authAuthRoute;
+  "/create": typeof mainCreateRoute;
+  "/edit": typeof mainEditRoute;
+  "/": typeof mainIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-workout': typeof CreateWorkoutRoute
-  '/edit-workout': typeof EditWorkoutRoute
+  "/auth": typeof authAuthRoute;
+  "/create": typeof mainCreateRoute;
+  "/edit": typeof mainEditRoute;
+  "/": typeof mainIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/create-workout': typeof CreateWorkoutRoute
-  '/edit-workout': typeof EditWorkoutRoute
+  __root__: typeof rootRoute;
+  "/auth": typeof authAuthRoute;
+  "/create": typeof mainCreateRoute;
+  "/edit": typeof mainEditRoute;
+  "/": typeof mainIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/create-workout' | '/edit-workout'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/create-workout' | '/edit-workout'
-  id: '__root__' | '/' | '/about' | '/create-workout' | '/edit-workout'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/auth" | "/create" | "/edit" | "/";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/auth" | "/create" | "/edit" | "/";
+  id: "__root__" | "/auth" | "/create" | "/edit" | "/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  CreateWorkoutRoute: typeof CreateWorkoutRoute
-  EditWorkoutRoute: typeof EditWorkoutRoute
+  authAuthRoute: typeof authAuthRoute;
+  mainCreateRoute: typeof mainCreateRoute;
+  mainEditRoute: typeof mainEditRoute;
+  mainIndexRoute: typeof mainIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  CreateWorkoutRoute: CreateWorkoutRoute,
-  EditWorkoutRoute: EditWorkoutRoute,
-}
+  authAuthRoute: authAuthRoute,
+  mainCreateRoute: mainCreateRoute,
+  mainEditRoute: mainEditRoute,
+  mainIndexRoute: mainIndexRoute,
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
@@ -132,23 +132,23 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/about",
-        "/create-workout",
-        "/edit-workout"
+        "/auth",
+        "/create",
+        "/edit",
+        "/"
       ]
     },
+    "/auth": {
+      "filePath": "(auth)/auth.tsx"
+    },
+    "/create": {
+      "filePath": "(main)/create.tsx"
+    },
+    "/edit": {
+      "filePath": "(main)/edit.tsx"
+    },
     "/": {
-      "filePath": "index.tsx"
-    },
-    "/about": {
-      "filePath": "about.tsx"
-    },
-    "/create-workout": {
-      "filePath": "create-workout.tsx"
-    },
-    "/edit-workout": {
-      "filePath": "edit-workout.tsx"
+      "filePath": "(main)/index.tsx"
     }
   }
 }
